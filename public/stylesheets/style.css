@@ -1,0 +1,98 @@
+
+:root {
+  --fundo: #000;
+  --nintendo: #21542a;
+  --playstation: #22296b;
+  --arcade: #675a26;
+  --texto: #98a7b5;
+}
+
+.dropdown-item:active{
+  background-color: rgb(49, 48, 55);
+}
+
+body{
+  background-color: var(--fundo);
+}
+
+.navbar{
+  width: 100%;
+}
+
+
+.nave{
+display: flex;
+flex-direction: row;
+}
+
+h2{
+  padding-top: 10px;
+  text-align: center;
+  color: var(--texto);
+}
+
+.container-carrossel{
+  padding-top: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.infojogo{
+  transition: 0.5s;
+     
+}
+
+.playstation:hover{
+  filter: drop-shadow(5px 4px 10px var(--playstation));
+}
+
+.nintendo:hover{
+  filter: drop-shadow(5px 4px 10px var(--nintendo));
+}
+
+.arcade:hover{
+  filter: drop-shadow(5px 4px 10px var(--arcade));
+}
+
+.infojogo:hover{
+ background-color: rgb(49, 48, 55);
+ box-shadow: 1px 1px 15px 4px rgb(45, 36, 98);
+ margin: -5px;
+ transform: scale(1.0);   
+}
+
+.img-logo{
+  width: 50px;
+}
+
+.img-jogos{
+  padding-top: 15px;
+  padding-right: 10px;
+ 
+}
+
+.jogos-populares{
+  color:var(--texto);
+  padding-top: 20px;
+}
+
+div.jogo {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;   
+}
+
+div.jogo iframe {
+  width: 100%;
+  height: 550px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+
+
+
+
+
+
