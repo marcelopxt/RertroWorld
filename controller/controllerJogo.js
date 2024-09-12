@@ -4,7 +4,7 @@ exports.cria_get = async function (req, res) {
     title: "Criação de Nova Anotação",
     titulo_pagina: "Criação de Anotação",
   };
-  res.render("telaAdmin");
+  res.render("telaAdmin", contexto);
 };
 
 exports.cria_post = async function (req, res) {
@@ -12,6 +12,8 @@ exports.cria_post = async function (req, res) {
   await jogos.cria(jogo);
   res.redirect("/");
 };
+
+
 
 exports.consulta = async function (req, res) {
 //   try {
@@ -100,3 +102,19 @@ exports.deleta = async function (req, res) {
 //   await anotacoes.deleta(chave);
 //   res.redirect("/");
 };
+
+exports.logarUsuario = async function (req, res) {
+    var usuario ={
+      email: req.body.email,
+      senha: req.body.senha
+    }
+    var login =  await jogos.logar(usuario);
+    
+    if ( login == true) {
+      res.redirect("/");
+    }else{
+      res.redirect("/")
+    }
+  };
+
+

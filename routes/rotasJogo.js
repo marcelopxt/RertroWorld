@@ -8,6 +8,8 @@ router.post('/cria', controllerJogo.cria_post);
 
 router.get('/consulta/:id_nota', controllerJogo.consulta);
 
+router.post("/logarUsuario",controllerJogo.logarUsuario); 
+
 router.get('/altera/:id_nota', controllerJogo.altera_get);
 
 router.post('/altera/:id_nota', controllerJogo.altera_post);

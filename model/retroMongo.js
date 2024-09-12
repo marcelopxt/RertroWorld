@@ -6,6 +6,7 @@ const conexao_bd = async () => {
   if (!cliente)
     cliente = await ClienteMongo.connect("mongodb://127.0.0.1:27017");
 };
+
 const bd = () => {
   return cliente.db("jogos");
 };
@@ -22,7 +23,12 @@ class RetroMongo {
     const colecao = bd().collection("jogos");
     await colecao.insertOne(jogo);
   }
-  
+
+  async criaUsuario(usuario) {
+    await conexao_bd();
+    const colecao = bd().collection("usuarios");
+    await colecao.insertOne(usuario);
+  }  
   async atualiza(jogo, chave) {
     // await conexao_bd();
     // const colecao = bd().collection("jogos");
@@ -39,11 +45,11 @@ class RetroMongo {
   }
 
 
-  async consulta(chave) {
-//     await conexao_bd();
-//     const colecao = bd().collection("jogos");
-//     const jogo = await colecao.findOne({ _id: new mongodb.ObjectId(chave) });
-//     return jogo;
+  async consulta(codigo) {
+    await conexao_bd();
+    const colecao = bd().collection("jogos");
+    const jogo = await colecao.findOne({ _id: new mongodb.ObjectId(codigo) });
+    return jogo;
   }
 
   async deleta(chave) {
@@ -58,10 +64,10 @@ class RetroMongo {
   }
   
   async lista() {
-    // await conexao_bd();
-    // const colecao = bd().collection("jogos");
-    // var jogos = await colecao.find({}).toArray();
-    // return jogos;
+    await conexao_bd();
+    const colecao = bd().collection("jogos");
+    var jogos = await colecao.find({}).toArray();
+    return jogos;
   }
 
   async listaTag(tag) {
@@ -83,7 +89,32 @@ class RetroMongo {
     // return qtd;
   }
 
+  async logar(usuario) {
+    await conexao_bd();
+    const colecao = bd().collection("usuarios");
+    var resultado = false;
+    var emailUsuario = usuario.email;
+    var senhaUsuario = usuario.senha;
+
+    try {
+        var verificacao = await colecao.find({ Email: emailUsuario }).toArray();
+        if (verificacao.length > 0) {
+            var usuarioEncontrado = verificacao[0];       
+            if (usuarioEncontrado.Email == emailUsuario && usuarioEncontrado.Senha == senhaUsuario) {
+                resultado = true;
+                console.log("Login bem-sucedido");
+            } else {
+                console.log("Email ou senha incorretos");
+            }
+        } else {
+            console.log("Usuário não encontrado");
+        }
+    } catch (erro) {
+        console.log("Algo deu errado ao conferir credenciais: ", erro);
+    }
+    return resultado;
 }
 
+}
 
 module.exports = new RetroMongo();

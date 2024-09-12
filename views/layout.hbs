@@ -41,50 +41,43 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
                     </button>
                 </div>
-
+                
                 <!--Conteudo offcanvas-->
                 <div class="offcanvas-body">
                     <div class="modal-body p-5 pt-0">
-                        <form class="">
+                        {{!-- {{#if resultado}} --}}
+                        <form action="/jogos/logarUsuario" method="POST">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control rounded-3" data-bs-theme="dark" id="floatingInput"
+                                <input type="email" class="form-control rounded-3" name="email" data-bs-theme="dark" id="email"
                                     placeholder="name@example.com">
-                                <label for="floatingInput" data-bs-theme="dark">Email</label>
+                                <label for="email" data-bs-theme="dark">Email</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control rounded-3" data-bs-theme="dark"
-                                    id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword" data-bs-theme="dark">Password</label>
+                                <input type="password" name="senha" class="form-control rounded-3" data-bs-theme="dark"
+                                    id="senha" placeholder="Password">
+                                <label for="senha" data-bs-theme="dark">Password</label>
                             </div>
                             <button class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" data-bs-toggle="tooltip"
                                 data-bs-placement="bottom" data-bs-title="Clicando em Sing Up você está concordando com os termos de
-                                uso." type="button">Sign up</button>
+                                uso." type="submit">Fazer Login</button>
                             <hr class="my-4">
-                            <h2 class="fs-5 fw-bold mb-3">Ou por meio de:</h2>
-                            <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-                                <svg class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#twitter" />
-                                </svg>
-                                Sign up with Twitter
-                            </button>
-                            <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
-                                <svg class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#facebook" />
-                                </svg>
-                                Sign up with Facebook
-                            </button>
-                            <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-                                <svg class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#github" />
-                                </svg>
-                                Sign up with GitHub
-                            </button>
+                            <h2 class="fs-5 fw-bold mb-3">Não tem uma conta?</h2>
+                            <a class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"  href="/jogos/criaUsuario" type="submit">
+                              Registre-se
+                            </a>
                         </form>
+                        {{!-- {{else}} --}}
+                        {{!-- <p>Login feito com sucesso!</p>
+                         <form action="/jogos/logarUsuario" method="POST">
+                         <button type="submit">Sair</button>
+                         </form> --}}
+                        {{!-- {{/if}} --}}
+                       
                     </div>
                 </div>
             </div>
             <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-
+            
 
                 <!-- Essa é a parte da LOGO, que pode ser retirada para colcoar o menu lateral-->
                 <div class="container-fluid">
@@ -94,7 +87,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
+                 
 
 
                     <!-- PARTE ESSENCIAL DA NAVBAR-->
@@ -120,11 +113,10 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="html/todos.html">Todos os Jogos</a>
+                                <a class="nav-link" href="/">Todos os Jogos</a>
                             </li>
                             <li>
-                                <p class="text-center"><a href="/jogos/cria" class="btn btn-secondary"><i class="bi bi-pencil-square"></i> Criar
-                                Jogo</a></p>
+                            <a class="btn btn-outline-success" href="/jogos/cria" type="button ">Painel Admin</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search">

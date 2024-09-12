@@ -54,25 +54,42 @@
             </div>
         </div>
     </div>
-
     <main class="container jogos-populares">
-
         <div class="row mb-2">
-
+ {{#each vjogos}}
             <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded infojogo playstation overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative infojogo">
+                {{#if this.playstation}}
+                <div class="row g-0 border rounded infojogo playstation overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative infojogo">
+                {{/if}}
+                 {{#if this.nintendo}}
+                <div class="row g-0 border rounded infojogo nintendo overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative infojogo">
+                {{/if}}
+                        {{#if this.arcade}}
+                <div class="row g-0 border rounded infojogo arcade overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative infojogo">
+                {{/if}}
+
                     <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">Playstation</strong>
-                        <h3 class="mb-0">Castlevania</h3>
+
+                {{#if this.playstation}}
+                         <strong class="d-inline-block mb-2 playstation text-primary">{{this.tag}}</strong>
+                {{/if}}
+                 {{#if this.nintendo}}
+                         <strong class="d-inline-block mb-2 nintendo text-success">{{this.tag}}</strong>
+                {{/if}}
+                 {{#if this.arcade}}
+                         <strong class="d-inline-block mb-2 arcade text-warning">{{this.tag}}</strong>
+                {{/if}}
+
+
+                        <h3 class="mb-0">{{this.titulo}}</h3>
                         <br>
-                        <p class="card-text mb-auto">Explore mistérios sombrios em Castlevania: Symphony of the Night.
-                            Aventura além do sobrenatural.</p>
-                        <a href="/jogos/" class="icon-link gap-1 icon-link-hover stretched-link">
+                        <p class="card-text mb-auto">{{this.descJogo}}</p>
+                        <a href="/jogar/{{this._id}}" class="icon-link gap-1 icon-link-hover stretched-link">
                             Jogar
                             <svg class="bi">
                                 <use xlink:href="#chevron-right" />
                             </svg>
+                        {{!-- <strong class="d-inline-block mb-2 text-primary">{{this.tag}}</strong> --}}
                         </a>
                     </div>
                     <div class="col-auto d-none d-lg-block img-jogos">
@@ -80,71 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded infojogo nintendo overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative infojogo">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-success">Nintendo</strong>
-                        <h3 class="mb-0">Super Metroid</h3>
-                        <br>
-                        <p class="mb-auto">Explore o desconhecido em Super Metroid, uma jornada intergaláctica cheia de
-                            mistérios e desafios.</p>
-                        <a href="html/jogos/super-metroid.html" class="icon-link gap-1 icon-link-hover stretched-link">
-                            Jogar
-                            <svg class="bi">
-                                <use xlink:href="#chevron-right" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <img class="img-jogos" src="../images/super-metroid.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded infojogo arcade overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative infojogo">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-warning">Arcade</strong>
-                        <h3 class="mb-0">Metal Slug X</h3>
-                        <br>
-                        <p class="mb-auto">Metal Slug X: Ação intensa, desafios eletrizantes. Prepare-se para a guerra
-                        </p>
-                        <a href="html/jogos/metal-slug.html" class="icon-link gap-1 icon-link-hover stretched-link">
-                            Jogar
-                            <svg class="bi">
-                                <use xlink:href="#chevron-right" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <img class="img-jogos" src="../images/metal-slug.png" alt="Metal-Slug-X">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded infojogo playstation overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative infojogo">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">Playstation</strong>
-                        <h3 class="mb-0">Crash Bandicoot</h3>
-                        <br>
-                        <p class="mb-auto">Viaje no tempo em Crash Bandicoot: Warped. Ação e diversão em cada fase!</p>
-                        <a href="html/jogos/crash-bandicoot.html"
-                            class="icon-link gap-1 icon-link-hover stretched-link">
-                            Jogar
-                            <svg class="bi">
-                                <use xlink:href="#chevron-right" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <img class="img-jogos" src="../images/crash-bandicoot.png" alt="Crash-Bandicoot">
-                    </div>
-                </div>
-            </div>
-
+        {{/each}}
         </div>
     </main>
 

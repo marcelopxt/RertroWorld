@@ -25,6 +25,14 @@ display: flex;
 flex-direction: row;
 }
 
+.form-control-file{
+  color: var(--texto);
+}
+
+.form-label{
+  color: var(--texto);
+}
+
 h2{
   padding-top: 10px;
   text-align: center;

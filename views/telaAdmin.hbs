@@ -1,29 +1,45 @@
-<form action="/users/cria" method="POST"></form>
-<div class="row">
-    <div class="form-group col-md-8">
-        <label for="titulo" class="form-label">Título:</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" value="{{jogo.titulo}}">
-    </div>
+<h1 class="text-center">Criar Novo Jogo</h1>
 
-    <div class="form-group col-md-4">
-        <label for="tag" class="form-label">Tag da Anotação</label>
-      <select class="form-select" id="tag" name="tag" required>
-        <option value="" disabled selected hidden>Selecione a Tag</option>
-        <option value="Pessoal">Pessoal</option>
-        <option value="Trabalho">Trabalho</option>
-        <option value="Curso">Curso</option>
-        <option value="Lazer">Lazer</option>
-      </select>
-    </div>
-</div>
+<form action="/jogos/cria" method="POST">
+        <div class="row">
+            <div class="form-group col-md-8" data-bs-theme="dark">
+                <label for="titulo" type="text" class=" form-label" data-bs-theme="dark">Título:</label>
+                <input type="text" class="form-control" data-bs-theme="dark" id="titulo" name="titulo" value="{{jogo.titulo}}">
+            </div>
 
-<div class="row">
-    <div class="form-groupc col-md-12">
-        <label for="iframeJogo" class="form-label">Iframe:</label>
-        <textarea id="descJogo" name="descJogo" class="form-control" rows="5"></textarea>
-    </div>
-</div>
+            <div class="form-group col-md-4">
+                <label for="tag" class="form-label" data-bs-theme="dark">Console do Jogo</label>
+            <select class="form-select" data-bs-theme="dark" id="tag" name="tag" required>
+                <option value="" disabled selected hidden>Selecione o Console</option>
+                <option value="Playstation">Playstation</option>
+                <option value="Nintendo">Nintendo</option>
+                <option value="Arcade">Arcade</option>
+            </select>
+            </div>
+        </div>
 
-    <button type="submit" class="btn btn-primary mt-3">Salvar</button>
-    <a href="/"class="btn btn-secondary mt-3">Cancelar</a>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="jogo" class="form-label" type="text" data-bs-theme="dark">Descrição do jogo:</label>
+                <textarea id="descJogo" name="descJogo" class="form-control" data-bs-theme="dark" rows="5"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="jogoframe" class="form-label" aria-describedby="helpId" type="text" data-bs-theme="dark">Iframe do jogo:</label>
+                <input id="iframe" name="iframe" class="form-control" data-bs-theme="dark" rows="2"></input>
+                <small id="helpId" class="text-muted" data-bs-theme="dark">Por favor, verifique se o Iframe está rodando o jogo</small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group mt-3">
+            <label for="formFileSm" name="imagemJogo"  class="form-label" data-bs-theme="dark" >Imagem do Jogo: </label>
+            <input type="file" class="form-control form-control-sm" data-bs-theme="dark"  id="imagemJogo">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+        <a href="/" class="btn btn-secondary mt-3" data-bs-theme="dark">Cancelar</a>
 </form>
