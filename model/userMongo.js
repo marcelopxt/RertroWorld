@@ -8,7 +8,7 @@ const conexao_bd = async () => {
 };
 
 const bd = () => {
-  return cliente.db("retro");
+  return cliente.db("jogos");
 };
 
 class RetroMongo {
@@ -24,21 +24,26 @@ class RetroMongo {
     await colecao.insertOne(jogo);
   }
 
-  async atualiza(jogo, codigo) {
+  async criaUsuario(usuario) {
     await conexao_bd();
-    const colecao = bd().collection("jogos");
-    await colecao.updateOne(
-      { _id: new mongodb.ObjectId(codigo)},
-      {
-        $set: {
-          titulo: jogo.titulo,
-          descJogo: jogo.descJogo,
-          iframe: jogo.iframe,
-          tag: jogo.tag,
-        },
-      }
-    );
+    const colecao = bd().collection("usuarios");
+    await colecao.insertOne(usuario);
+  }  
+  async atualiza(jogo, chave) {
+    // await conexao_bd();
+    // const colecao = bd().collection("jogos");
+    // await colecao.updateOne(
+    //   { _id: new mongodb.ObjectId(chave)},
+    //   {
+    //     $set: {
+    //       titulo: jogo.titulo,
+    //       descricao: jogo.descricao,
+    //       tag: jogo.tag,
+    //     },
+    //   }
+    // );
   }
+
 
   async consulta(codigo) {
     await conexao_bd();
@@ -47,15 +52,15 @@ class RetroMongo {
     return jogo;
   }
 
-  async deleta(codigo) {
-    await conexao_bd();
-    const colecao = bd().collection("jogos");
-    const doc = await colecao.findOne({ _id: new mongodb.ObjectId(codigo) });
-    if (!doc) {
-    throw new Error( "Não existe um jogo com codigo: ${codigo}");
-    } else {
-      await colecao.findOneAndDelete({  _id: new mongodb.ObjectId(codigo) });
-    }
+  async deleta(chave) {
+    // await conexao_bd();
+    // const colecao = bd().collection("jogos");
+    // const doc = await colecao.findOne({ _id: new mongodb.ObjectId(chave) });
+    // if (!doc) {
+    // throw new Error( "Não existe um jogo com chave: ${chave}");
+    // } else {
+    //   await colecao.findOneAndDelete({  _id: new mongodb.ObjectId(chave) });
+    // }
   }
   
   async lista() {
@@ -66,11 +71,13 @@ class RetroMongo {
   }
 
   async listaTag(tag) {
-    await conexao_bd();
-    const colecao = bd().collection("jogos");
-    var jogos = await colecao.find({tag: tag}).toArray();
-    return jogos;
+    // await conexao_bd();
+    // const colecao = bd().collection("jogos");
+    // var jogos = await colecao.find({tag: tag}).toArray();
+    // return jogos;
   }
+
+ 
 
   async qtdTag(tag) {
     // await conexao_bd();
@@ -82,54 +89,32 @@ class RetroMongo {
     // return qtd;
   }
 
-
-  
-  async criaUsuario(usuario) {
-    await conexao_bd();
-    const colecao = bd().collection("usuarios");
-    await colecao.insertOne(usuario);
-  }  
-
   async logar(usuario) {
     await conexao_bd();
     const colecao = bd().collection("usuarios");
-    var result = false;
-    var descResult;
+    var resultado = false;
     var emailUsuario = usuario.email;
     var senhaUsuario = usuario.senha;
 
     try {
-        var verificacao = await colecao.find({ Email: emailUsuario, Senha: senhaUsuario }).toArray();
+        var verificacao = await colecao.find({ Email: emailUsuario, Senha: senhaUsu }).toArray();
         if (verificacao.length > 0) {
             var usuarioEncontrado = verificacao[0];       
             if (usuarioEncontrado.Email == emailUsuario && usuarioEncontrado.Senha == senhaUsuario) {
-                result = true;
-                descResult = "Login bem-sucedido";
+                resultado = true;
                 console.log("Login bem-sucedido");
             } else {
-                result = false
-                descResult = "Email ou senha incorretos";
                 console.log("Email ou senha incorretos");
             }
         } else {
-            result = false
-            descResult = "Usuário não encontrado";
             console.log("Usuário não encontrado");
         }
     } catch (erro) {
-        result = false
-        descResult = "Algo deu errado ao conferir credenciais!";
         console.log("Algo deu errado ao conferir credenciais: ", erro);
     }
-
-
-   var retorno = {
-      "result": result,
-      "descricao": descResult
-    }
-    return retorno;
+    return resultado;
 }
 
 }
 
-module.exports = new RetroMongo();  
+module.exports = new RetroMongo();

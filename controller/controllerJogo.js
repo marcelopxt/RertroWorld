@@ -1,4 +1,5 @@
 const jogos = require("../model/retroMongo.js");
+
 exports.cria_get = async function (req, res) {
   contexto = {
     title: "Criação de Nova Anotação",
@@ -8,7 +9,17 @@ exports.cria_get = async function (req, res) {
 };
 
 exports.cria_post = async function (req, res) {
-  var jogo = req.body;
+  var titulo = req.body.titulo;
+  var descJogo = req.body.descJogo;
+  var iframe = req.body.iframe;
+  var tag = req.body.tag;
+
+  var jogo = {
+    "titulo" : titulo,
+    "descJogo" : descJogo,
+    "iframe" : iframe,
+    "tag" : tag
+  } 
   await jogos.cria(jogo);
   res.redirect("/");
 };
@@ -16,31 +27,31 @@ exports.cria_post = async function (req, res) {
 
 
 exports.consulta = async function (req, res) {
-//   try {
-//     var chave = req.params.id_nota;
-//     var anotacao = await anotacoes.consulta(chave);
-//     var data = anotacao.data.toLocaleDateString("pt-BR");
-//     contexto = {
-//       titulo_pagina: "Consulta a Anotação", 
-//       anotacao: anotacao,
-//       data: data,
-//     };
-//     res.render("consultaAnotacao", contexto);
-//   } catch (err) {
-//     res.redirect("/errorIdNaoEncontrado/" + chave);
-//   }
+  // try {
+  //   var chave = req.params.id_nota;
+  //   var jogo = await jogos.consulta(chave);
+  //   var data = jogo.data.toLocaleDateString("pt-BR");
+  //   contexto = {
+  //     titulo_pagina: "Consulta a Anotação", 
+  //     jogo: jogo,
+  //     data: data,
+  //   };
+  //   res.render("consultajogo", contexto);
+  // } catch (err) {
+  //   res.redirect("/errorIdNaoEncontrado/" + chave);
+  // }
 };
 
 exports.altera_get = async function (req, res) {
 //   try {
 //     var chave = req.params.id_nota;
-//     var anotacao = await anotacoes.consulta(chave);
+//     var jogo = await jogos.consulta(chave);
 //     var tagPessoal = false;
 //     var tagTrabalho = false;
 //     var tagCurso = false;
 //     var tagLazer = false;
 
-//     switch (anotacao.tag) {
+//     switch (jogo.tag) {
 //       case "Pessoal":
 //         tagPessoal = true;
 //         break;
@@ -57,64 +68,51 @@ exports.altera_get = async function (req, res) {
 //     contexto = {
 //       title: "Alteração de Anotações",
 //       titulo_pagina: "Altera a Anotação",
-//       anotacao: anotacao,
+//       jogo: jogo,
 //       tagPessoal: tagPessoal,
 //       tagTrabalho: tagTrabalho,
 //       tagCurso: tagCurso,
 //       tagLazer: tagLazer,
 //     };
-//     res.render("alteraAnotacao", contexto);
+//     res.render("alterajogo", contexto);
 //   } catch (err) {
 //     res.redirect("/errorIdNaoEncontrado/" + chave);
 //   }
 };
 
 exports.altera_post = async function (req, res) {
-//   var anotacao = req.body;
+//   var jogo = req.body;
 //   var chave = req.params.id_nota;
-//   await anotacoes.atualiza(anotacao, chave);
+//   await jogos.atualiza(jogo, chave);
 //   res.redirect("/");
 };
 
 exports.mudarTag = async function (req, res) {
 //   var chave = req.params.id_nota;
 //   console.log(chave)
-//   var anotacao = await anotacoes.consulta(chave);
-//   var tagAtual = anotacao.tag;
+//   var jogo = await jogos.consulta(chave);
+//   var tagAtual = jogo.tag;
 //   console.log(tagAtual)
 
 //   if (tagAtual == "Pessoal") {
-//     anotacao.tag = "Trabalho";
+//     jogo.tag = "Trabalho";
 //   } else if (tagAtual == "Trabalho") {
-//     anotacao.tag = "Curso";
+//     jogo.tag = "Curso";
 //   } else if (tagAtual == "Curso") {
-//     anotacao.tag = "Lazer";
+//     jogo.tag = "Lazer";
 //   } else if (tagAtual == "Lazer") {
-//     anotacao.tag = "Pessoal";
+//     jogo.tag = "Pessoal";
 //   }
-//   await anotacoes.atualiza(anotacao, chave);
-//   console.log(anotacao.tag)
+//   await jogos.atualiza(jogo, chave);
+//   console.log(jogo.tag)
 //   res.redirect("/");
 };
 
 exports.deleta = async function (req, res) {
 //   var chave = req.params.id_nota;
-//   await anotacoes.deleta(chave);
+//   await jogos.deleta(chave);
 //   res.redirect("/");
 };
 
-exports.logarUsuario = async function (req, res) {
-    var usuario ={
-      email: req.body.email,
-      senha: req.body.senha
-    }
-    var login =  await jogos.logar(usuario);
-    
-    if ( login == true) {
-      res.redirect("/");
-    }else{
-      res.redirect("/")
-    }
-  };
 
 

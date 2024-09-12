@@ -6,8 +6,13 @@ var logger = require('morgan');
 
 var rotasIndex = require('./routes/rotasIndex');
 var rotasJogo = require('./routes/rotasJogo');
+var rotasUsuarios = require('./routes/rotasUsuarios');
 
 var app = express();
+
+const bodyParser = require('body-parser');
+const session = require('express-session')
+const flash = require('connect-flash')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,8 +24,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(bodyParser.json())
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: false
+}))
+app.use(flash())
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg")
+  res.locals.error_msg = req.flash("error_msg")
+  next()
+})
+
 app.use('/', rotasIndex);
 app.use('/jogos', rotasJogo);
+app.use('/usuarios', rotasUsuarios);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

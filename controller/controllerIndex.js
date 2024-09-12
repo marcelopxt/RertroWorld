@@ -31,20 +31,16 @@ exports.tela_principal = async function (req, res) {
 
 }
 
-exports.criaUsuario_get = async function (req, res) {
-  contexto = {
-    title: "Criação de Nova Anotação",
-    titulo_pagina: "Criação de Anotação",
-  };
+exports.telaCriaUser = async function (req, res) {
   res.render("criaUsuario", contexto);
 };
 
-exports.criaUsuario_post = async function (req, res) {
-  var usuario = req.body;
-  await jogos.criaUsuario(usuario);
-  res.redirect("/");
-};
+exports.telaCriaJogos = async function (req, res) {
+  condescricao = {
 
+  }
+  res.render('telaAdmin', condescricao);
+}
 
 exports.tela_jogos = async function (req, res) {
   var codigo = req.params._id;
@@ -56,19 +52,7 @@ exports.tela_jogos = async function (req, res) {
     linkframe: linkframe
   }
   res.render('jogar', condescricao);
-  
 }
-
-exports.telaCriaJogos = async function (req, res) {
-  // var idJogo = req.params._id;
-  // var jogo = await jogos.consulta(idJogo);
-
-  condescricao = {
-    // iframe : jogo.iframe
-  }
-  res.render('telaAdmin', condescricao);
-}
-
 
 exports.tela_errorID = async function (req, res) {
   var id = req.params.id;

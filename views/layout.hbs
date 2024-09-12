@@ -45,8 +45,13 @@
                 <!--Conteudo offcanvas-->
                 <div class="offcanvas-body">
                     <div class="modal-body p-5 pt-0">
-                        {{!-- {{#if resultado}} --}}
-                        <form action="/jogos/logarUsuario" method="POST">
+                        {{#if success_msg}}
+                         <p>Login feito com sucesso!</p>
+                         <form action="/usuarios/logarUsuario" method="POST">
+                         <button type="submit">Sair</button>
+                         </form>
+                        {{else}}
+                       <form action="/usuarios/logarUsuario" method="POST">
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control rounded-3" name="email" data-bs-theme="dark" id="email"
                                     placeholder="name@example.com">
@@ -62,16 +67,11 @@
                                 uso." type="submit">Fazer Login</button>
                             <hr class="my-4">
                             <h2 class="fs-5 fw-bold mb-3">Não tem uma conta?</h2>
-                            <a class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"  href="/jogos/criaUsuario" type="submit">
+                            <a class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"  href="/usuarios/cria" type="submit">
                               Registre-se
                             </a>
                         </form>
-                        {{!-- {{else}} --}}
-                        {{!-- <p>Login feito com sucesso!</p>
-                         <form action="/jogos/logarUsuario" method="POST">
-                         <button type="submit">Sair</button>
-                         </form> --}}
-                        {{!-- {{/if}} --}}
+                        {{/if}}
                        
                     </div>
                 </div>
@@ -129,6 +129,12 @@
             </nav>
         </div>
         <div class="container mt-4">
+             {{#if success_msg}}
+                            <div class="alert alert-succsess">{{success_msg}}</div>
+             {{/if}}
+             {{#if erorr_msg}}
+                            <div class="alert alert-warning">{{error_msg}}</div>
+             {{/if}}
             {{{body}}}
         </div>
     </body>
