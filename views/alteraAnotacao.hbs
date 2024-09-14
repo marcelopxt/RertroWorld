@@ -1,0 +1,58 @@
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Pagina Principal</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Alteração de Anotação</li>
+  </ol>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center" style="color: var(--azul);">Alteração da Anotação</h2>
+    <hr class="mb-4">
+
+    <form method='POST' action='/z/altera/{{anotacao._id}}'>
+        <div class="col-md-4">
+       <label for="tag" class="form-label">Tag da Anotação</label>
+        <select class="form-select" id="tag" name="tag" required>
+
+        {{#if tagPessoal}}
+        <option value="Pessoal" selected> Pessoal </option>
+        {{else}}
+        <option value="Pessoal"> Pessoal </option>
+        {{/if}}
+
+        {{#if tagTrabalho}}
+        <option value="Trabalho" selected> Trabalho </option>
+        {{else}}
+        <option value="Trabalho"> Trabalho </option>
+        {{/if}}
+
+        {{#if tagCurso}}
+        <option value="Curso" selected> Curso </option>
+        {{else}}
+        <option value="Curso"> Curso </option>
+        {{/if}}
+
+        {{#if tagLazer}}
+        <option value="Lazer" selected> Lazer </option>
+        {{else}}
+        <option value="Lazer"> Lazer </option>
+        {{/if}}
+
+      </select>
+    </div>
+
+        <div class="mb-3">
+            <label for="titulo" class="form-label"><b>Título</b></label>
+            <input type='text' name='titulo' class="form-control" value="{{anotacao.titulo}}" size="60" required />
+            <input type="hidden" name="chave" value="{{anotacao._id}}">
+            <input type="hidden" name="dataCriacao" value="{{anotacao.dataCriacao}}">
+        </div>
+        <div class="mb-3">
+            <label for="descricao" class="form-label"><b>Texto da Nota</b></label>
+            <textarea rows="5" cols="57" name='descricao' class="form-control">{{anotacao.descricao}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i>Alterar</button>
+        <a href="/" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+</div>

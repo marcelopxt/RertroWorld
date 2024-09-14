@@ -1,86 +1,89 @@
-
 :root {
   --fundo: #000;
   --nintendo: #21542a;
   --playstation: #22296b;
   --arcade: #675a26;
   --texto: #98a7b5;
+  --overlay-bg: rgba(0, 0, 0, 0.5); /* Cor e opacidade da sobreposição */
 }
 
-.dropdown-item:active{
+.dropdown-item:active {
   background-color: rgb(49, 48, 55);
 }
 
-body{
+body {
   background-color: var(--fundo);
 }
 
-.navbar{
+.navbar {
   width: 100%;
 }
 
-
-.nave{
-display: flex;
-flex-direction: row;
+.nave {
+  display: flex;
+  flex-direction: row;
 }
 
-.form-control-file{
+.form-control-file {
   color: var(--texto);
 }
 
-.form-label{
+.form-label {
   color: var(--texto);
 }
 
-h2{
+h2 {
   padding-top: 10px;
   text-align: center;
   color: var(--texto);
 }
 
-.container-carrossel{
+.container-carrossel {
   padding-top: 20px;
   max-width: 600px;
   margin: auto;
 }
 
-.infojogo{
+.infojogo {
   transition: 0.5s;
-     
+  position: relative;
+  height: 225px; /* Altura ajustada para o card */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Garante que o conteúdo não ultrapasse o card */
 }
 
-.playstation:hover{
+.playstation:hover {
   filter: drop-shadow(5px 4px 10px var(--playstation));
 }
 
-.nintendo:hover{
+.nintendo:hover {
   filter: drop-shadow(5px 4px 10px var(--nintendo));
 }
 
-.arcade:hover{
+.arcade:hover {
   filter: drop-shadow(5px 4px 10px var(--arcade));
 }
 
-.infojogo:hover{
- background-color: rgb(49, 48, 55);
- box-shadow: 1px 1px 15px 4px rgb(45, 36, 98);
- margin: -5px;
- transform: scale(1.0);   
+.infojogo:hover {
+  background-color: rgb(49, 48, 55);
+  box-shadow: 1px 1px 15px 4px rgb(45, 36, 98);
+  margin: -5px;
+  transform: scale(1.0);
 }
 
-.img-logo{
+.img-logo {
   width: 50px;
 }
 
-.img-jogos{
-  padding-top: 15px;
-  padding-right: 10px;
- 
+.col.p-4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribui o espaço disponível entre os itens */
 }
 
-.jogos-populares{
-  color:var(--texto);
+.jogos-populares {
+  color: var(--texto);
   padding-top: 20px;
 }
 
@@ -88,7 +91,7 @@ div.jogo {
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: center;   
+  justify-content: center;
 }
 
 div.jogo iframe {
@@ -98,9 +101,59 @@ div.jogo iframe {
   border-radius: 10px;
 }
 
+/* Adiciona a funcionalidade para buttons-container */
+.buttons-container {
+  display: none; /* Inicialmente oculto */
+  position: absolute; /* Para sobrepor outros elementos */
+  bottom: 85px; /* Ajusta a posição vertical para que fique mais próximo da parte inferior */
+  left: 50%; /* Centraliza horizontalmente com base no ponto de origem */
+  transform: translateX(-50%); /* Ajusta a posição para centralizar corretamente */
+  gap: 25px; /* Espaço entre os botões, ajuste conforme necessário */
+  z-index: 10; /* Garante que a buttons-container esteja acima de outros elementos */
+  pointer-events: auto; /* Garante que os botões sejam clicáveis */
+}
 
+.botao {
+  background-color: #000;
+}
 
+/* Mostra buttons-container ao passar o mouse sobre infojogo */
+.infojogo:hover .buttons-container {
+  display: flex;
+  justify-content: center; /* Centraliza os botões horizontalmente */
+  align-items: center; /* Alinha verticalmente, se necessário */
+  transition: opacity 0.3s ease;
+}
 
+/* Adiciona a sobreposição e desfoque ao card quando os botões aparecem */
+.infojogo.blur-overlay {
+  position: relative; /* Necessário para o posicionamento da sobreposição */
+}
 
+.infojogo.blur-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-bg);
+  backdrop-filter: blur(5px); /* Aplica o desfoque ao fundo */
+  z-index: 5; /* Garante que a sobreposição esteja acima do conteúdo do card */
+  pointer-events: none; /* Permite clicar através da sobreposição */
+}
 
+/* Ajusta a imagem para manter proporção e centralizar verticalmente */
+.col-auto.d-none.d-lg-block {
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Opcional: centraliza horizontalmente */
+  height: 100%; /* Garante que o contêiner ocupe a altura completa do card */
+  padding: 10px; /* Adiciona espaçamento ao redor da imagem */
+}
 
+.img-jogos {
+  max-width: 100%; /* Garante que a imagem não exceda a largura do contêiner */
+  max-height: 100%; /* Garante que a imagem não exceda a altura do contêiner */
+  object-fit: contain; /* Faz com que a imagem seja redimensionada mantendo a proporção */
+}

@@ -8,14 +8,14 @@ router.get('/cria', controllerJogo.cria_get);
 
 router.post('/cria', controllerJogo.cria_post); 
 
-router.get('/consulta/:id_nota', controllerJogo.consulta);
+router.get('/consulta/:codJogo', controllerJogo.consulta);
 
-router.get('/altera/:id_nota', controllerJogo.altera_get);
+router.get('/altera/:codJogo', controllerJogo.altera_get);
 
-router.post('/altera/:id_nota', controllerJogo.altera_post);
+router.post('/altera/:codJogo', controllerJogo.altera_post);
 
-router.get('/deleta/:id_nota', controllerJogo.deleta);
+router.get('/deleta/:codJogo', controllerJogo.deleta);
 
-router.get("/alteratag/:id_nota", controllerJogo.mudarTag); 
+router.get("/alteratag/:codJogo", controllerJogo.mudarTag); 
 
 module.exports = router;

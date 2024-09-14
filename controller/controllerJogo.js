@@ -12,7 +12,7 @@ const multer = require('multer');
 // Configuração do multer fora da função para evitar reconfiguração a cada requisição
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/../public'); // Diretório onde os arquivos serão salvos
+    cb(null, __dirname + '/../public/images'); // Diretório onde os arquivos serão salvos
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -150,9 +150,9 @@ exports.mudarTag = async function (req, res) {
 };
 
 exports.deleta = async function (req, res) {
-//   var chave = req.params.id_nota;
-//   await jogos.deleta(chave);
-//   res.redirect("/");
+  var codigo = req.params.codJogo;
+  await jogos.deleta(codigo);
+  res.redirect("/");
 };
 
 
