@@ -14,6 +14,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session')
 const flash = require('connect-flash')
 
+app.use('/public', express.static(__dirname + '/public'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -36,7 +38,6 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash("error_msg")
   next()
 })
-
 app.use('/', rotasIndex);
 app.use('/jogos', rotasJogo);
 app.use('/usuarios', rotasUsuarios);

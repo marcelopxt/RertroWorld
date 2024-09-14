@@ -1,7 +1,7 @@
 const usuarios = require("../model/retroMongo.js");
 
 exports.logarUsuario = async function (req, res) {
-    var usuario ={
+    var usuario = {
       "email" : req.body.email,
       "senha" : req.body.senha
     }

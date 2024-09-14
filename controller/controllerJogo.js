@@ -7,22 +7,63 @@ exports.cria_get = async function (req, res) {
   };
   res.render("telaAdmin", contexto);
 };
+const multer = require('multer');
 
-exports.cria_post = async function (req, res) {
-  var titulo = req.body.titulo;
-  var descJogo = req.body.descJogo;
-  var iframe = req.body.iframe;
-  var tag = req.body.tag;
+// Configuração do multer fora da função para evitar reconfiguração a cada requisição
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/../public'); // Diretório onde os arquivos serão salvos
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + ".jpg"); // Salva o arquivo com nome único e extensão .jpg
+  }
+});
 
-  var jogo = {
-    "titulo" : titulo,
-    "descJogo" : descJogo,
-    "iframe" : iframe,
-    "tag" : tag
-  } 
-  await jogos.cria(jogo);
-  res.redirect("/");
+const upload = multer({ storage }).single('file'); // Aqui definimos que será um único arquivo
+
+exports.cria_post = function(req, res) {
+  upload(req, res, async function(err) {
+    if (err instanceof multer.MulterError) {
+      console.log("Erro do multer:", err);
+      return res.status(500).send("Erro no upload da imagem.");
+    } else if (err) {
+      console.log("Erro desconhecido:", err);
+      return res.status(500).send("Erro no upload.");
+    }
+
+    try {
+      var titulo = req.body.titulo;
+      var descJogo = req.body.descJogo;
+      var iframe = req.body.iframe;
+      var tag = req.body.tag;
+      var imagem = req.file ? req.file.filename : null;
+
+      console.log("Dados recebidos:");
+      console.log("Título:", titulo);
+      console.log("Descrição:", descJogo);
+      console.log("Iframe:", iframe);
+      console.log("Tag:", tag);
+      console.log("Imagem:", imagem);
+
+      var jogo = {
+        titulo: titulo,
+        descJogo: descJogo,
+        iframe: iframe,
+        tag: tag,
+        imagem: imagem 
+      };
+      await jogos.cria(jogo);
+      console.log("Jogo salvo no banco de dados!");
+      res.redirect("/");
+    } catch (error) {
+      console.log("Erro ao salvar o jogo no banco de dados:", error);
+      res.status(500).send("Erro ao salvar o jogo.");
+    }
+  });
 };
+
+
 
 
 
