@@ -27,17 +27,37 @@ class RetroMongo {
   async atualiza(jogo, codigo) {
     await conexao_bd();
     const colecao = bd().collection("jogos");
-    await colecao.updateOne(
-      { _id: new mongodb.ObjectId(codigo)},
-      {
-        $set: {
-          titulo: jogo.titulo,
-          descJogo: jogo.descJogo,
-          iframe: jogo.iframe,
-          tag: jogo.tag,
-        },
-      }
-    );
+    console.log("entrou no atualiza")
+    console.log(jogo.titulo)
+
+    if (jogo.imagem === null) {
+      await colecao.updateOne(
+        { _id: new mongodb.ObjectId(codigo)},
+        {
+          $set: {
+            titulo: jogo.titulo,
+            descJogo: jogo.descJogo,
+            iframe: jogo.iframe,
+            tag: jogo.tag
+          },
+        }
+      );
+    }else{
+      await colecao.updateOne(
+        { _id: new mongodb.ObjectId(codigo)},
+        {
+          $set: {
+            titulo: jogo.titulo,
+            descJogo: jogo.descJogo,
+            iframe: jogo.iframe,
+            tag: jogo.tag,
+            imagem: jogo.imagem
+          },
+        }
+      );
+    }
+console.log(jogo)
+ 
   }
 
   async consulta(codigo) {
@@ -65,7 +85,7 @@ class RetroMongo {
     return jogos;
   }
 
-  async listaTag(tag) {
+  async filtroTag(tag) {
     await conexao_bd();
     const colecao = bd().collection("jogos");
     var jogos = await colecao.find({tag: tag}).toArray();
@@ -80,6 +100,18 @@ class RetroMongo {
     //   qtd = await colecao.count({tag: tag});
     // }
     // return qtd;
+  }
+
+
+
+  
+ 
+  async metodoPesquisar(pesquisa) {
+    await conexao_bd();
+    const colecao = bd().collection("jogos");
+    await colecao.createIndex({ titulo: "text" });
+    var jogos = await colecao.find({ $text: { $search: pesquisa } }).toArray();
+    return jogos
   }
 
 

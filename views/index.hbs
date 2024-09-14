@@ -113,8 +113,9 @@
 
                                 <div class="col p-4 d-flex flex-column espacoJogo position-static">
                                     <div class="buttons-container">
-                                        <a href="/jogos/altera/{{this._id}}"   class="btn botao btn-outline-primary">Alterar</a>
-                                        <a href="#" data-bs-toggle="modal"  data-bs-target="#deleteModal{{this._id}}"
+                                        <a href="/jogos/altera/{{this._id}}"
+                                            class="btn botao btn-outline-primary">Alterar</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{this._id}}"
                                             class="btn botao btn-outline-danger">Deletar</a>
                                     </div>
                                     {{#if this.playstation}}
@@ -159,8 +160,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Não</button>
-                                        <a href="/jogos/deleta/{{this._id}}"><button
-                                                class="btn btn-danger">Sim</button>
+                                        <a href="/jogos/deleta/{{this._id}}"><button class="btn btn-danger">Sim</button>
                                         </a>
                                     </div>
                                 </div>

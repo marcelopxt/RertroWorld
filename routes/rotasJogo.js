@@ -16,6 +16,4 @@ router.post('/altera/:codJogo', controllerJogo.altera_post);
 
 router.get('/deleta/:codJogo', controllerJogo.deleta);
 
-router.get("/alteratag/:codJogo", controllerJogo.mudarTag); 
-
 module.exports = router;

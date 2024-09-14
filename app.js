@@ -10,7 +10,6 @@ var rotasUsuarios = require('./routes/rotasUsuarios');
 
 var app = express();
 
-const bodyParser = require('body-parser');
 const session = require('express-session')
 const flash = require('connect-flash')
 
@@ -26,7 +25,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.json())
 app.use(session({
   secret: 'secret',
   resave: true,
