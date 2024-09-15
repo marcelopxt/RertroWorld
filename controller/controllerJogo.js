@@ -82,19 +82,20 @@ exports.consulta = async function (req, res) {
   //   res.redirect("/errorIdNaoEncontrado/" + chave);
   // }
 };
-
 exports.altera_get = async function (req, res) {
   try {
-    var tagPLaystation = false;
+    // Inicializando as variáveis das tags
+    var tagPlaystation = false;
     var tagNintendo = false;
     var tagArcade = false;
 
-    var cod = req.params.codJogo
+    var cod = req.params.codJogo;
     var jogo = await jogos.consulta(cod);
 
+    // Definindo a tag correta com base no jogo
     switch (jogo.tag) {
       case "Playstation":
-        tagPLaystation = true;
+        tagPlaystation = true;
         break;
       case "Nintendo":
         tagNintendo = true;
@@ -102,26 +103,24 @@ exports.altera_get = async function (req, res) {
       case "Arcade":
         tagArcade = true;
         break;
-      case "Lazer":
-        tagLazer = true;
-        break;
     }
 
-    contexto = {
+    // Montando o contexto para renderizar a página
+    const contexto = {
       jogo: jogo,
-      tagPLaystation: tagPLaystation,
-      tagNIntendo: tagNintendo,
+      tagPlaystation: tagPlaystation,
+      tagNintendo: tagNintendo,
       tagArcade: tagArcade
     };
 
-    console.log(contexto)
-    res.render("alteraJogo", contexto)
+    // Renderizando a página com os dados do jogo
+    res.render("alteraJogo", contexto);
   } catch (error) {
-    console.log("Erro ao salvar o jogo no banco de dados:", error);
-    res.status(500).send("Erro ao salvar o jogo.");
+    console.log("Erro ao buscar o jogo no banco de dados:", error);
+    res.status(500).send("Erro ao buscar o jogo.");
   }
-
 };
+
 exports.altera_post = function (req, res) {
   upload(req, res, async function (err) {
     if (err instanceof multer.MulterError) {

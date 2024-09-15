@@ -6,160 +6,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Site Extra</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
 
 </head>
 
 <body>
-
     <div class="nave sticky-top">
+    <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+        aria-controls="offcanvasExample">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+            <path fill-rule="evenodd"
+                d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+        </svg>
+    </button>
 
-        <!--aqui eu crio o botao que sera usado no offcanvas-->
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample">
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel ">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                <img class="img-logo" src="/public/images/logoTeste2.png" alt="logo">
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
+            </button>
+        </div>
 
-            <!--O SVG é usado para definir gráficos baseados em vetores, tem exemplo no google-->
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
-                <path fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-            </svg>
-        </button>
+        <div class="offcanvas-body">
+            <div class="modal-body p-5 pt-0">
+                {{#if success_msg}}
+                <p>Login feito com sucesso!</p>
+                <form action="/usuarios/logarUsuario" method="POST">
+                    <button type="submit">Sair</button>
+                </form>
+                {{else}}
+                <form action="/usuarios/logarUsuario" method="POST">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control rounded-3" name="email" data-bs-theme="dark"
+                            id="email" placeholder="name@example.com">
+                        <label for="email" data-bs-theme="dark">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" name="senha" class="form-control rounded-3" data-bs-theme="dark"
+                            id="senha" placeholder="Password">
+                        <label for="senha" data-bs-theme="dark">Password</label>
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" type="submit">Fazer Login</button>
+                    <hr class="my-4">
+                    <h2 class="fs-5 fw-bold mb-3">Não tem uma conta?</h2>
+                    <a class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" href="/usuarios/cria" type="submit">
+                        Registre-se
+                    </a>
+                </form>
+                {{/if}}
 
-        <!--Começo do Offcanvas-->
-        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel ">
-
-            <!--Cabeçalho do offcanvas-->
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    <img class="img-logo" src="../images/logo.png" alt="logo">
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
-                </button>
-            </div>
-
-            <!--Conteudo offcanvas-->
-            <div class="offcanvas-body">
-                <div class="modal-body p-5 pt-0">
-                    {{#if success_msg}}
-                    <p>Login feito com sucesso!</p>
-                    <form action="/usuarios/logarUsuario" method="POST">
-                        <button type="submit">Sair</button>
-                    </form>
-                    {{else}}
-                    <form action="/usuarios/logarUsuario" method="POST">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" name="email" data-bs-theme="dark"
-                                id="email" placeholder="name@example.com">
-                            <label for="email" data-bs-theme="dark">Email</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" name="senha" class="form-control rounded-3" data-bs-theme="dark"
-                                id="senha" placeholder="Password">
-                            <label for="senha" data-bs-theme="dark">Password</label>
-                        </div>
-                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" data-bs-title="Clicando em Sing Up você está concordando com os termos de
-                                uso." type="submit">Fazer Login</button>
-                        <hr class="my-4">
-                        <h2 class="fs-5 fw-bold mb-3">Não tem uma conta?</h2>
-                        <a class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" href="/usuarios/cria"
-                            type="submit">
-                            Registre-se
-                        </a>
-                    </form>
-                    {{/if}}
-
-                </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-
-
-            <!-- Essa é a parte da LOGO, que pode ser retirada para colcoar o menu lateral-->
-            <div class="container-fluid">
-                <img class="img-logo" src="../images/logo.png" alt="logo">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-
-
-                <!-- PARTE ESSENCIAL DA NAVBAR-->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Jogos Populares</a>
-                        </li>
-<form action="/" method="POST" class="d-flex align-items-center">
-  <select id="filterTag" name="tag" class="form-select me-2" style="max-width: 200px;">
-    <option value="Todos"> Todos</option>
-    <option value="Playstation" {{#if playstation}}selected{{/if}}>Playstation</option>
-    <option value="Nintendo" {{#if nintendo}}selected{{/if}}>Nintendo</option>
-    <option value="Arcade" {{#if arcade}}selected{{/if}}>Arcade</option>
-  </select>
-  <button type="submit" class="btn btn-secondary btn-sm">Filtrar</button>
-</form>
-
-
-
-
-                        {{!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Categorias
-                            </a>
-
-                            <!--aqui estao as categorias, se quiser add mais, so copiar e colar-->
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-primary" href="html/playstation.html">Playstation</a>
-                                </li>
-                                <li><a class="dropdown-item text-success" href="html/nintendo.html">Nintendo</a>
-                                </li>
-                                <li><a class="dropdown-item text-warning" href="html/arcade.html">Arcade</a>
-                                </li>
-                            </ul>
-
-                        </li> --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Todos os Jogos</a>
-                        </li>
-                        <li>
-                            <a class="btn btn-outline-success" href="/jogos/cria" type="button ">Painel Admin</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="Pesquisar" action="/" method="POST">
-                        <div class="input-group">
-                            {{#if condicao_pesquisa}}
-                            <input class="form-control" type="search" name="pesquisa" placeholder="{{pesquisa}}"
-                                aria-label="Pesquisar" disabled>
-                            <button name="cancelarButton" class="btn btn-outline-danger" type="submit"><i
-                                    class="bi bi-x-circle-fill"></i></button>
-                            {{else}}
-                            <input class="form-control" type="search" name="pesquisa" placeholder="Pesquisar"
-                                aria-label="Pesquisar" required>
-                            <button name="pesquisaButton" class="btn btn-outline-primary" type="submit"><i
-                                    class="bi bi-search"></i></i></button>
-                            {{/if}}
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </nav>
     </div>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid justify-content-center">
+            <!-- Logo e Título -->
+            <div class="d-flex align-items-center">
+                <img class="img-logo" src="/public/images/logoTeste2.png" alt="logo">
+            </div>
+
+            <!-- Filtro de tags -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <form action="/" method="POST" class="d-flex align-items-center">
+                    <select id="filterTag" name="tag" class="form-select me-2" style="max-width: 200px;">
+                        <option value="Todos"> Todos</option>
+                        <option value="Playstation" {{#if playstation}}selected{{/if}}>Playstation</option>
+                        <option value="Nintendo" {{#if nintendo}}selected{{/if}}>Nintendo</option>
+                        <option value="Arcade" {{#if arcade}}selected{{/if}}>Arcade</option>
+                    </select>
+                    <button type="submit" class="btn btn-secondary btn-sm">Filtrar</button>
+                </form>
+            </ul>
+
+            <!-- Botão centralizado -->
+            <a class="btn btn-outline-success mx-auto" href="/jogos/cria" type="button">Painel Admin</a>
+
+            <!-- Formulário de pesquisa -->
+            <form class="d-flex ms-auto" role="Pesquisar" action="/" method="POST">
+                <div class="input-group">
+                    {{#if condicao_pesquisa}}
+                    <input class="form-control" type="search" name="pesquisa" placeholder="{{pesquisa}}"
+                        aria-label="Pesquisar" disabled>
+                    <button name="cancelarButton" class="btn btn-outline-danger" type="submit"><i
+                            class="bi bi-x-circle-fill"></i></button>
+                    {{else}}
+                    <input class="form-control" type="search" name="pesquisa" placeholder="Pesquisar"
+                        aria-label="Pesquisar" required>
+                    <button name="pesquisaButton" class="btn btn-outline-primary" type="submit"><i
+                            class="bi bi-search"></i></i></button>
+                    {{/if}}
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
     <div class="container mt-4">
-        {{#if success_msg}}
+        {{!-- {{#if success_msg}}
         <div class="alert alert-succsess">{{success_msg}}</div>
         {{/if}}
         {{#if erorr_msg}}
         <div class="alert alert-warning">{{error_msg}}</div>
-        {{/if}}
+        {{/if}} --}}
         {{{body}}}
     </div>
 

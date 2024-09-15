@@ -1,7 +1,4 @@
-<div class="container mt-5">
-  <h2 class="text-center" style="color: var(--azul);">Alteração de Jogo</h2>
-  <hr class="mb-4">
-</div>
+<h1 class="text-center">Alterar Jogo</h1>
 
 <form action="/jogos/altera/{{jogo._id}}" data-bs-theme="dark" method="POST" enctype="multipart/form-data">
   <div class="row">
@@ -36,14 +33,11 @@
 
   <div class="row">
     <div class="form-group mt-3">
-      <label for="file" class="form-label">Imagem do Jogo:</label>
-      <input type="file" class="form-control" id="file" name="file">
+      <label for="file" class="form-label" >Imagem do Jogo:</label>
+      <input type="file" class="form-control" id="file" name="file" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-title="Se quiser manter a imagem atual, deixe este campo vazio.">
     </div>
   </div>
-
   <button type="submit" class="btn btn-primary mt-3">Atualizar</button>
   <a href="/" class="btn btn-secondary mt-3">Cancelar</a>
 </form>
-
-
-</div>
