@@ -9,12 +9,10 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 // Adiciona a funcionalidade de embaçamento ao passar o mouse sobre o card
 document.querySelectorAll('.infojogo').forEach(card => {
     card.addEventListener('mouseover', () => {
-        // Adiciona a classe blur-overlay quando o mouse está sobre o card
         card.classList.add('blur-overlay');
     });
 
     card.addEventListener('mouseleave', () => {
-        // Remove a classe blur-overlay quando o mouse sai do card
         card.classList.remove('blur-overlay');
     });
 });
@@ -22,15 +20,12 @@ document.querySelectorAll('.infojogo').forEach(card => {
 // Adiciona a funcionalidade de embaçamento ao exibir os botões
 document.querySelectorAll('.infojogo').forEach(card => {
     const buttonsContainer = card.querySelector('.buttons-container');
-    
     if (buttonsContainer) {
         buttonsContainer.addEventListener('mouseenter', () => {
-            // Adiciona a classe blur-overlay quando os botões estão visíveis
             card.classList.add('blur-overlay');
         });
 
         buttonsContainer.addEventListener('mouseleave', () => {
-            // Remove a classe blur-overlay quando os botões não estão mais visíveis
             card.classList.remove('blur-overlay');
         });
     }
