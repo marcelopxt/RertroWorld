@@ -63,36 +63,14 @@ exports.cria_post = function (req, res) {
   });
 };
 
-
-
-
-
-exports.consulta = async function (req, res) {
-  // try {
-  //   var chave = req.params.id_nota;
-  //   var jogo = await jogos.consulta(chave);
-  //   var data = jogo.data.toLocaleDateString("pt-BR");
-  //   contexto = {
-  //     titulo_pagina: "Consulta a Anotação", 
-  //     jogo: jogo,
-  //     data: data,
-  //   };
-  //   res.render("consultajogo", contexto);
-  // } catch (err) {
-  //   res.redirect("/errorIdNaoEncontrado/" + chave);
-  // }
-};
 exports.altera_get = async function (req, res) {
   try {
-    // Inicializando as variáveis das tags
     var tagPlaystation = false;
     var tagNintendo = false;
     var tagArcade = false;
-
     var cod = req.params.codJogo;
     var jogo = await jogos.consulta(cod);
 
-    // Definindo a tag correta com base no jogo
     switch (jogo.tag) {
       case "Playstation":
         tagPlaystation = true;
@@ -104,16 +82,12 @@ exports.altera_get = async function (req, res) {
         tagArcade = true;
         break;
     }
-
-    // Montando o contexto para renderizar a página
     const contexto = {
       jogo: jogo,
       tagPlaystation: tagPlaystation,
       tagNintendo: tagNintendo,
       tagArcade: tagArcade
     };
-
-    // Renderizando a página com os dados do jogo
     res.render("alteraJogo", contexto);
   } catch (error) {
     console.log("Erro ao buscar o jogo no banco de dados:", error);
@@ -149,7 +123,7 @@ exports.altera_post = function (req, res) {
       var cod = req.params.codJogo;
       console.log(cod);
       console.log(jogo);
-      
+
       await jogos.atualiza(jogo, cod);
       console.log("Jogo atualizado no banco de dados!");
       res.redirect("/");
@@ -160,7 +134,6 @@ exports.altera_post = function (req, res) {
   });
 };
 
-
 exports.deleta = async function (req, res) {
   var codigo = req.params.codJogo;
   await jogos.deleta(codigo);
@@ -169,3 +142,50 @@ exports.deleta = async function (req, res) {
 
 
 
+//============================================================================================================== API =====================================================================================================================
+exports.criaApi = async function (req, res) {
+  var jogo = req.body;
+  await jogos.cria(jogo);
+  retorno = {
+    mensagem: "Jogo criado com sucesso"
+  }
+  res.json(retorno);
+};
+
+exports.deletaApi = async function (req, res) {
+  var codigo = req.params.codJogo;
+  if (await jogos.deleta(codigo)) {
+    var retorno = {
+      mensagem: "Jogo deletado com sucesso!"
+    }
+  } else {
+    var retorno = {
+      mensagem: "Erro ao deletar Jogo!"
+    }
+  }
+  res.json(retorno);
+};
+
+exports.alteraApi = async function (req, res) {
+  var jogo = req.body
+  var cod = req.params.codJogo;
+  await jogos.atualiza(jogo, cod);
+  var retorno = {
+    mensagem: "Jogo atualizado no banco de dados!"
+  }
+  res.json(retorno);
+};
+
+exports.consultaApi = async function (req, res) {
+  var cod = req.params.codJogo;
+  var jogo = await jogos.consulta(cod);
+  var retorno = {
+    mensagem: "Jogo Consultado:",
+    titulo: jogo.titulo,
+    descJogo: jogo.descJogo,
+    iframe: jogo.iframe,
+    tag: jogo.tag,
+    imagem: jogo.imagem
+  }
+  res.json(retorno);
+};

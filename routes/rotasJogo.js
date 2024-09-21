@@ -8,8 +8,6 @@ router.get('/cria', controllerJogo.cria_get);
 
 router.post('/cria', controllerJogo.cria_post); 
 
-router.get('/consulta/:codJogo', controllerJogo.consulta);
-
 router.get('/altera/:codJogo', controllerJogo.altera_get);
 
 router.post('/altera/:codJogo', controllerJogo.altera_post);

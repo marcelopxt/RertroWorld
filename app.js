@@ -7,11 +7,9 @@ var logger = require('morgan');
 var rotasIndex = require('./routes/rotasIndex');
 var rotasJogo = require('./routes/rotasJogo');
 var rotasUsuarios = require('./routes/rotasUsuarios');
+var rotasAPI = require('./routes/rotasAPI');
 
 var app = express();
-
-const session = require('express-session')
-const flash = require('connect-flash')
 
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -25,20 +23,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: false
-}))
-app.use(flash())
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash("success_msg")
-  res.locals.error_msg = req.flash("error_msg")
-  next()
-})
 app.use('/', rotasIndex);
 app.use('/jogos', rotasJogo);
 app.use('/usuarios', rotasUsuarios);
+app.use('/api', rotasAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
