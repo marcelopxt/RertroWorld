@@ -216,6 +216,22 @@
         </div>
     </div>
 </div>
+{{else}}
+<div aria-live="polite" aria-atomic="true" data-bs-theme="dark" class="bg-body-secondary position-relative bd-example-toasts rounded-3">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastPlacement" style="z-index: 11">
+        <div class="toast">
+            <div class="toast-header">
+                <strong class="me-auto"><i class="bi bi-controller"></i>
+                    RetroWorld</strong>
+                <small>Agora</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"  >
+                <p>Bem vindo visitante, faça login e liberar muitos outros jogos!</p>
+            </div>
+        </div>
+    </div>
+</div>
 {{/if}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
