@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session')
 
 var rotasIndex = require('./routes/rotasIndex');
 var rotasJogo = require('./routes/rotasJogo');
@@ -10,6 +11,13 @@ var rotasUsuarios = require('./routes/rotasUsuarios');
 var rotasAPI = require('./routes/rotasAPI');
 
 var app = express();
+
+app.use(session({
+  secret: 'pepino',
+  // resave: false,
+  // saveUninitialized: false
+}))
+
 
 app.use('/public', express.static(__dirname + '/public'));
 

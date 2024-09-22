@@ -51,9 +51,81 @@
         </div>
     </div>
 </div>
+
 <main class="container jogos-populares">
     <div class="row mb-2">
+        {{#if login}}
+
+
+
         {{#each vjogos}}
+        <div class="col-md-6 ">
+            {{#if this.playstation}}
+            <div
+                class="row g-0 border rounded infojogo playstation overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                {{/if}}
+                {{#if this.nintendo}}
+                <div
+                    class="row g-0 border rounded infojogo nintendo overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    {{/if}}
+                    {{#if this.arcade}}
+                    <div
+                        class="row g-0 border rounded infojogo arcade overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        {{/if}}
+                        <div class="col p-4 d-flex flex-column espacoJogo position-static">
+                            <div class="buttons-container">
+                                <a href="/jogos/altera/{{this._id}}" class="btn botao btn-outline-primary">Alterar</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{this._id}}"
+                                    class="btn botao btn-outline-danger">Deletar</a>
+                            </div>
+
+                            {{#if this.playstation}}
+                            <strong class="d-inline-block mb-2 playstation text-primary">{{this.tag}}</strong>
+                            {{/if}}
+                            {{#if this.nintendo}}
+                            <strong class="d-inline-block mb-2 nintendo text-success">{{this.tag}}</strong>
+                            {{/if}}
+                            {{#if this.arcade}}
+                            <strong class="d-inline-block mb-2 arcade text-warning">{{this.tag}}</strong>
+                            {{/if}}
+                            <h3 class="mb-0">{{this.titulo}}</h3>
+                            <br>
+                            <p class="card-text mb-auto">{{this.descJogo}}</p>
+                            <a href="/jogar/{{this._id}}" class="icon-link gap-1 icon-link-hover stretched-link">
+                                Jogar
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="col-auto d-none d-lg-block img-jogos">
+                            <img class="img-jogos" src="../public/images/{{this.imagem}}" alt="castlevania">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" data-bs-theme="dark" id="deleteModal{{this._id}}" tabindex="-1"
+                    aria-labelledby="deleteModalLabel{{this._id}}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="deleteModalLabel{{this._id}}">Atenção!</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Você deseja excluir permanentemente o Jogo"{{this.titulo}}"?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                                <a href="/jogos/deleta/{{this._id}}"><button class="btn btn-danger">Sim</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{else}}
+                {{#each jogosVisitante}}
                 <div class="col-md-6 ">
                     {{#if this.playstation}}
                     <div
@@ -67,7 +139,6 @@
                             <div
                                 class="row g-0 border rounded infojogo arcade overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                                 {{/if}}
-
                                 <div class="col p-4 d-flex flex-column espacoJogo position-static">
                                     <div class="buttons-container">
                                         <a href="/jogos/altera/{{this._id}}"
@@ -75,6 +146,7 @@
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{this._id}}"
                                             class="btn botao btn-outline-danger">Deletar</a>
                                     </div>
+
                                     {{#if this.playstation}}
                                     <strong class="d-inline-block mb-2 playstation text-primary">{{this.tag}}</strong>
                                     {{/if}}
@@ -122,7 +194,10 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{/if}}
                     </div>
+                </div>
+            </div>
 </main>
 
 <nav aria-label="Page navigation example" data-bs-theme="dark">
@@ -137,3 +212,27 @@
         </li>
     </ul>
 </nav>
+{{#if login}}
+<div aria-live="polite" aria-atomic="true" data-bs-theme="dark" class="bg-body-secondary position-relative bd-example-toasts rounded-3">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastPlacement" style="z-index: 11">
+        <div class="toast">
+            <div class="toast-header">
+                <strong class="me-auto"><i class="bi bi-controller"></i>
+                    RetroWorld</strong>
+                <small>Agora</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"  >
+                <p>Olá {{nomeLogado}}, divirta-se!</p>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var toastEl =
+            document.querySelector('.toast'); var toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    });
+</script>

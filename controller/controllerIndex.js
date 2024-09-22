@@ -1,7 +1,27 @@
 const jogos = require('../model/retroMongo.js');
 
-
 exports.tela_principal = async function (req, res) {
+  var admin;
+  var adminId = '66f048d81d937fe385323634';
+  var login;
+  var nomeLogado = req.session.nome;
+  if (req.session.logado == adminId) {
+    login = true;
+    admin = true
+  } else if (req.session.logado) {
+    login = true
+    admin = false;
+  } else {
+    login = false
+    admin = false
+  }
+
+  var deslogar = req.body.deslogar;
+  if (deslogar == 'sair') {
+    req.session.destroy()
+    res.redirect('/')
+  }
+
 
   var condicao_pesquisa = false;
   var pesquisa = req.body.pesquisa;
@@ -11,57 +31,72 @@ exports.tela_principal = async function (req, res) {
   var playstation = false;
   var nintendo = false;
   var arcade = false;
-  console.log(tag)
-  console.log(pesquisa)
 
   if ((tag === undefined || tag === "Todos") && (pesquisa === undefined)) {
     retorno = todosJogos
-    console.log("entrou no primeiro if")
-  } else 
-  if ((pesquisa === undefined)) {
-    retorno = jogosFiltrados;
-    console.log("entrou no segundo if")
-  } else if (pesquisa !== undefined) {
-    condicao_pesquisa = true;
-    retorno = await jogos.metodoPesquisar(pesquisa);
-    console.log("entrou no terceiro if")
-    } else if (cancelarButton !== undefined){
+  } else
+    if ((pesquisa === undefined)) {
+      retorno = jogosFiltrados;
+    } else if (pesquisa !== undefined) {
+      condicao_pesquisa = true;
+      retorno = await jogos.metodoPesquisar(pesquisa);
+    } else if (cancelarButton !== undefined) {
       condicao_pesquisa = false;
       retorno = todosJogos;
-      console.log("entrou no ultimo if")
-  }
-  
+    }
+
+    var jogosVisitante = await jogos.listav();
+
+
   if (tag === "Playstation") {
     playstation = true;
   } else if (tag === "Nintendo") {
     nintendo = true;
   } else if (tag === "Arcade") {
     arcade = true;
-  } 
+  }
 
   retorno.forEach((jogo) => {
     switch (jogo.tag) {
       case "Playstation":
-          jogo.playstation = true;
-          break;
+        jogo.playstation = true;
+        break;
       case "Nintendo":
-          jogo.nintendo = true;
-          break;
+        jogo.nintendo = true;
+        break;
       case "Arcade":
-          jogo.arcade = true;
-          break;
-    }});
+        jogo.arcade = true;
+        break;
+    }
+  });
+
+
+  jogosVisitante.forEach((jogo) => {
+    switch (jogo.tag) {
+      case "Playstation":
+        jogo.playstation = true;
+        break;
+      case "Nintendo":
+        jogo.nintendo = true;
+        break;
+      case "Arcade":
+        jogo.arcade = true;
+        break;
+    }
+  });
 
   condescricao = {
+    nomeLogado: nomeLogado,
+    login: login,
+    admin: admin,
+    jogosVisitante: jogosVisitante,
     vjogos: retorno,
     playstation: playstation,
-    condicao_pesquisa :  condicao_pesquisa,
+    condicao_pesquisa: condicao_pesquisa,
     pesquisa: pesquisa,
     arcade: arcade,
     nintendo: nintendo
   };
-
-  console.log(condescricao)
   res.render('index', condescricao);
 
 }

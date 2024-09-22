@@ -7,10 +7,6 @@
   --overlay-bg: rgba(0, 0, 0, 0.5); /* Cor e opacidade da sobreposição */
 }
 
-/* .dropdown-item:active {
-  background-color: rgb(49, 48, 55);
-} */
-
 body {
   background-color: var(--fundo);
 }
@@ -53,10 +49,10 @@ h2 {
 .infojogo {
   transition: 0.5s;
   position: relative;
-  height: 225px; /* Altura ajustada para o card */
+  height: 225px; 
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Garante que o conteúdo não ultrapasse o card */
+  overflow: hidden;
 }
 
 .playstation:hover {
@@ -85,12 +81,16 @@ h2 {
 .col.p-4 {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Distribui o espaço disponível entre os itens */
+  justify-content: space-between;
 }
 
 .jogos-populares {
   color: var(--texto);
   padding-top: 20px;
+}
+
+.toast{
+  color: var(--texto);
 }
 
 div.jogo {
@@ -107,16 +107,15 @@ div.jogo iframe {
   border-radius: 10px;
 }
 
-/* Adiciona a funcionalidade para buttons-container */
 .buttons-container {
-  display: none; /* Inicialmente oculto */
-  position: absolute; /* Para sobrepor outros elementos */
-  bottom: 85px; /* Ajusta a posição vertical para que fique mais próximo da parte inferior */
-  left: 50%; /* Centraliza horizontalmente com base no ponto de origem */
-  transform: translateX(-50%); /* Ajusta a posição para centralizar corretamente */
-  gap: 25px; /* Espaço entre os botões, ajuste conforme necessário */
-  z-index: 10; /* Garante que a buttons-container esteja acima de outros elementos */
-  pointer-events: auto; /* Garante que os botões sejam clicáveis */
+  display: none;
+  position: absolute;
+  bottom: 85px;   
+  left: 50%;
+  transform: translateX(-50%); 
+  gap: 25px; 
+  z-index: 10; 
+  pointer-events: auto;
 }
 
 .botao {
@@ -126,14 +125,14 @@ div.jogo iframe {
 /* Mostra buttons-container ao passar o mouse sobre infojogo */
 .infojogo:hover .buttons-container {
   display: flex;
-  justify-content: center; /* Centraliza os botões horizontalmente */
-  align-items: center; /* Alinha verticalmente, se necessário */
+  justify-content: center;
+  align-items: center; 
   transition: opacity 0.3s ease;
 }
 
 /* Adiciona a sobreposição e desfoque ao card quando os botões aparecem */
 .infojogo.blur-overlay {
-  position: relative; /* Necessário para o posicionamento da sobreposição */
+  position: relative; 
 }
 
 .infojogo.blur-overlay::before {
@@ -144,22 +143,22 @@ div.jogo iframe {
   width: 100%;
   height: 100%;
   background-color: var(--overlay-bg);
-  backdrop-filter: blur(5px); /* Aplica o desfoque ao fundo */
-  z-index: 5; /* Garante que a sobreposição esteja acima do conteúdo do card */
-  pointer-events: none; /* Permite clicar através da sobreposição */
+  backdrop-filter: blur(5px); 
+  z-index: 5; 
+  pointer-events: none;
 }
 
 /* Ajusta a imagem para manter proporção e centralizar verticalmente */
 .col-auto.d-none.d-lg-block {
   display: flex;
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Opcional: centraliza horizontalmente */
-  height: 100%; /* Garante que o contêiner ocupe a altura completa do card */
-  padding: 10px; /* Adiciona espaçamento ao redor da imagem */
+  align-items: center; 
+  justify-content: center; 
+  height: 100%; 
+  padding: 10px;
 }
 
 .img-jogos {
-  max-width: 100%; /* Garante que a imagem não exceda a largura do contêiner */
-  max-height: 100%; /* Garante que a imagem não exceda a altura do contêiner */
-  object-fit: contain; /* Faz com que a imagem seja redimensionada mantendo a proporção */
+  max-width: 100%;
+  max-height: 100%; 
+  object-fit: contain;
 }

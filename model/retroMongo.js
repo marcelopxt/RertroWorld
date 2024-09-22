@@ -79,7 +79,14 @@ console.log(jogo)
     var jogos = await colecao.find({}).toArray();
     return jogos;
   }
-
+  
+  async listav() {
+    await conexao_bd();
+    const colecao = bd().collection("jogos");
+    var jogos = await colecao.find({}).limit(4).toArray();
+    return jogos;
+  }
+  
   async filtroTag(tag) {
     await conexao_bd();
     const colecao = bd().collection("jogos");

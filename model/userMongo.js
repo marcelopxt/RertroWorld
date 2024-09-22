@@ -19,9 +19,11 @@ async criaUsuario(usuario) {
   }  
 
   async logar(dados) {
+    console.log('chegou no logar')
+    console.log(dados)
     await conexao_bd();
     const colecao = bd().collection("usuarios");
-   return   await colecao.findOne({email: dados.email, senha: dados.senha})
+    return await colecao.findOne({email: dados.email, senha: dados.senha})
 }
 
 async consulta(id) {

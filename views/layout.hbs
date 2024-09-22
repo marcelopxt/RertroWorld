@@ -34,7 +34,19 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
             </button>
         </div>
-
+        {{#if login}}
+        <div class="offcanvas-body">
+    <div class="modal-body p-5 pt-0">
+        <p>Logado como: {{nomeLogado}}</p>
+        <form action="/" method="POST">
+         <input name="deslogar" value="sair" class="d-none" style="max-width: 2px;"></input>
+        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" type="submit">
+            Sair da Conta
+        </button>
+        </form>
+    </div>
+</div>
+{{else}}
         <div class="offcanvas-body">
             <div class="modal-body p-5 pt-0">
                 <form action="/usuarios/logarUsuario" method="POST">
@@ -57,6 +69,7 @@
                 </form>
             </div>
         </div>
+        {{/if}}
     </div>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -78,20 +91,20 @@
                     <button type="submit" class="btn btn-secondary btn-sm">Filtrar</button>
                 </form>
             </ul>
-
-            <a class="btn btn-outline-success mx-auto" href="/jogos/cria" type="button">Painel Admin</a>
-
+            {{#if admin}}
+            <a class="btn btn-outline-success mx-auto botaoAdmin" href="/jogos/cria" type="button">Painel Admin</a>
+            {{/if}}
             <form class="d-flex ms-auto" role="Pesquisar" action="/" method="POST">
                 <div class="input-group">
                     {{#if condicao_pesquisa}}
                     <input class="form-control" type="search" name="pesquisa" placeholder="{{pesquisa}}"
                         aria-label="Pesquisar" disabled>
-                    <button name="cancelarButton" class="btn btn-outline-danger" type="submit"><i
+                    <button name="cancelarButton" class="btn btn-outline-secondary" type="submit"><i
                             class="bi bi-x-circle-fill"></i></button>
                     {{else}}
                     <input class="form-control" type="search" name="pesquisa" placeholder="Pesquisar"
                         aria-label="Pesquisar" required>
-                    <button name="pesquisaButton" class="btn btn-outline-primary" type="submit"><i
+                    <button name="pesquisaButton" class="btn btn-outline-secondary" type="submit"><i
                             class="bi bi-search"></i></i></button>
                     {{/if}}
                 </div>
@@ -103,7 +116,37 @@
     <div class="container mt-4">
         {{{body}}}
     </div>
+        <script>
+            if ({{admin}}) {
+                document.querySelectorAll('.infojogo').forEach(card => {
+                    card.addEventListener('mouseover', () => {
+                        card.classList.add('blur-overlay');
+                    });
 
+                    card.addEventListener('mouseleave', () => {
+                        card.classList.remove('blur-overlay');
+                    });
+                });
+
+                // Adiciona a funcionalidade de embaçamento ao exibir os botões
+                document.querySelectorAll('.infojogo').forEach(card => {
+                    const buttonsContainer = card.querySelector('.buttons-container');
+                    if (buttonsContainer) {
+                        buttonsContainer.addEventListener('mouseenter', () => {
+                            card.classList.add('blur-overlay');
+                            buttonsContainer.classList.remove('d-none');
+                        });}
+                });
+            }else {
+                document.querySelectorAll('.infojogo').forEach(card => {
+                    const buttonsContainer = card.querySelector('.buttons-container');
+                    if (buttonsContainer) {
+                        buttonsContainer.classList.add('d-none');
+                    }
+                });
+            }
+
+        </script>
     <script src="/javascripts/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="/javascripts/script.js"></script>
 </body>

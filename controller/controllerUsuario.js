@@ -1,23 +1,28 @@
 const usuarios = require("../model/userMongo.js");
 
 exports.logarUsuario = async function (req, res) {
-  var dados = req.body;
-  var retorno;
-  if (await usuarios.logar(dados) == null) {
-    retorno = {
-      mensagem: "Usuario Não encontrado"
-    }
-  } else {
-    retorno = {
-      mensagem: "Usuario encontrado"
-    }
+  var admin;
+  var dados = {
+    email: req.body.email,
+    senha: req.body.senha
   }
-  res.json(retorno);
+  console.log(dados)
+  var user = await usuarios.logar(dados);
+  if (user == null) {
+    admin = false
+  } else {
+    req.session.logado = user._id;
+    req.session.nome = user.nome;
+  }
+  var retorno = {
+    admin: admin
+  }
+    console.log(retorno)
+  res.redirect('/')
 };
 
 exports.criaUsuario_get = async function (req, res) {
-
-  res.render("criaUsuario", contexto);
+  res.render("criaUsuario");
 };
 
 exports.criaUsuario_post = async function (req, res) {
@@ -29,18 +34,22 @@ exports.criaUsuario_post = async function (req, res) {
 //============================================================================================================== API =====================================================================================================================
 
 exports.logarUsuarioApi = async function (req, res) {
-  var dados = req.body;
-  var retorno;
-  if (await usuarios.logar(dados) == null) {
-    retorno = {
-      mensagem: "Usuario Não encontrado"
-    }
-  } else {
-    retorno = {
-      mensagem: "Usuario encontrado"
-    }
+  var admin;
+  var dados = {
+    email: req.body.email,
+    senha: req.body.senha
   }
-  res.json(retorno);
+  console.log(dados)
+  var user = await usuarios.logar(dados);
+  if (user == null) {
+    admin = false
+  } else {
+    req.session.logado = user._id;
+  }
+  var retorno = {
+    admin: admin
+  }
+  res.json(retorno)
 };
 
 exports.criaUsuarioApi = async function (req, res) {
